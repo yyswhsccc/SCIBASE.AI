@@ -23,6 +23,11 @@ for (const item of result.approvalQueue) {
   );
 }
 console.log("");
+console.log("API catalog");
+for (const endpoint of result.apiCatalog.endpoints) {
+  console.log(`- ${endpoint.method} ${endpoint.path} [${endpoint.scope}]`);
+}
+console.log("");
 console.log("Webhook events");
 for (const event of result.webhookEvents) {
   console.log(`- ${event.id} ${event.signature.slice(0, 23)}...`);

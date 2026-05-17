@@ -21,10 +21,12 @@ rotation.
   departments, cost centers, and top at-risk projects.
 - Deterministic quota evaluation for warning, critical, and blocked states.
 - Admin approval queue with requested decisions and action recommendations.
+- REST API catalog for dashboard, review queue, project detail, decision, and
+  export manifest routes, including service scopes and integration clients.
 - Custom tag preservation for grant, doctoral, restricted-data, ELN sync,
   open-science, and reproducibility initiatives.
 - Export manifest for institutional dashboards, finance chargeback ledgers,
-  compliance archives, and workflow webhooks.
+  compliance archives, workflow webhooks, and the REST API catalog.
 - HMAC-signed webhook payloads using synthetic sample data only.
 
 ## Local verification
@@ -40,6 +42,6 @@ The implementation uses only Node.js built-ins and has no install step.
 
 ## Demo output
 
-`npm run demo` prints the portfolio summary, review queue, and signed webhook
-event IDs. A static visual preview is available in `docs/demo.svg`; the PR also
-includes `docs/demo.mp4` as a short reviewer demo artifact.
+`npm run demo` prints the portfolio summary, review queue, REST API routes, and
+signed webhook event IDs. A static visual preview is available in `docs/demo.svg`;
+the PR also includes `docs/demo.mp4` as a short reviewer demo artifact.

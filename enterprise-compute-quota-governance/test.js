@@ -26,6 +26,35 @@ assert.ok(
   result.approvalQueue[0].recommendedActions.includes("attach-restricted-data-compliance-evidence")
 );
 
+assert.equal(
+  result.apiCatalog.basePath,
+  "/enterprise/quota-governance/northbridge-research-university-2026-q2"
+);
+assert.deepEqual(result.apiCatalog.scopes, [
+  "enterprise:quota.read",
+  "enterprise:quota.review",
+  "enterprise:quota.export"
+]);
+assert.deepEqual(
+  result.apiCatalog.endpoints.map((endpoint) => `${endpoint.method} ${endpoint.path}`),
+  [
+    "GET /enterprise/quota-governance/northbridge-research-university-2026-q2/dashboard",
+    "GET /enterprise/quota-governance/northbridge-research-university-2026-q2/reviews",
+    "GET /enterprise/quota-governance/northbridge-research-university-2026-q2/projects/{projectId}",
+    "POST /enterprise/quota-governance/northbridge-research-university-2026-q2/reviews/{queueId}/decision",
+    "GET /enterprise/quota-governance/northbridge-research-university-2026-q2/export-manifest"
+  ]
+);
+assert.ok(
+  result.apiCatalog.integrationClients.some((client) =>
+    client.examples.includes("DSpace")
+  )
+);
+assert.equal(
+  result.apiCatalog.endpoints.find((endpoint) => endpoint.response === "exportManifest").recordCount,
+  5
+);
+
 const climateReview = result.approvalQueue.find(
   (item) => item.projectId === "climate-preprint-replication"
 );
@@ -38,12 +67,18 @@ assert.deepEqual(
     "institutional-admin-dashboard",
     "finance-chargeback-ledger",
     "compliance-evidence-archive",
-    "workflow-webhooks"
+    "workflow-webhooks",
+    "enterprise-quota-rest-api"
   ]
 );
 
 assert.ok(result.complianceEvidence.customTags.includes("GRANT-TRACKED"));
 assert.ok(result.complianceEvidence.customTags.includes("RESTRICTED-DATA"));
+assert.ok(
+  result.complianceEvidence.requirementMap.some((line) =>
+    line.includes("REST API catalog")
+  )
+);
 assert.ok(
   result.complianceEvidence.requirementMap.some((line) =>
     line.includes("Webhook-ready review events")

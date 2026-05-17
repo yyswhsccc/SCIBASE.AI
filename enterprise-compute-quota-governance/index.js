@@ -32,7 +32,14 @@ function evaluateQuotaGovernance(input, policyOverrides = {}) {
 
   const dashboard = buildDashboard(input, projectEvaluations);
   const approvalQueue = buildApprovalQueue(projectEvaluations, policy);
-  const exportManifest = buildExportManifest(input, projectEvaluations, dashboard, approvalQueue);
+  const apiCatalog = buildApiCatalog(input, projectEvaluations, dashboard, approvalQueue);
+  const exportManifest = buildExportManifest(
+    input,
+    projectEvaluations,
+    dashboard,
+    approvalQueue,
+    apiCatalog
+  );
   const complianceEvidence = buildComplianceEvidence(input, projectEvaluations, dashboard);
 
   const result = {
@@ -42,6 +49,7 @@ function evaluateQuotaGovernance(input, policyOverrides = {}) {
     policy: redactPolicy(policy),
     dashboard,
     approvalQueue,
+    apiCatalog,
     exportManifest,
     complianceEvidence
   };
@@ -201,7 +209,85 @@ function buildApprovalQueue(projectEvaluations, policy) {
     }));
 }
 
-function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue) {
+function buildApiCatalog(input, projectEvaluations, dashboard, approvalQueue) {
+  const basePath = `/enterprise/quota-governance/${slug([
+    input.institution || "institution",
+    input.period || "period"
+  ])}`;
+
+  return {
+    version: "v1",
+    basePath,
+    authentication: "institutional-service-token",
+    scopes: ["enterprise:quota.read", "enterprise:quota.review", "enterprise:quota.export"],
+    endpoints: [
+      {
+        method: "GET",
+        path: `${basePath}/dashboard`,
+        scope: "enterprise:quota.read",
+        description: "Fetch portfolio and department quota metrics for admin dashboards.",
+        response: "dashboard",
+        recordCount: dashboard.portfolio.projectCount
+      },
+      {
+        method: "GET",
+        path: `${basePath}/reviews`,
+        scope: "enterprise:quota.review",
+        description: "List quota review decisions sorted by blocked, critical, and warning risk.",
+        response: "approvalQueue",
+        recordCount: approvalQueue.length
+      },
+      {
+        method: "GET",
+        path: `${basePath}/projects/{projectId}`,
+        scope: "enterprise:quota.read",
+        description: "Inspect a project compute/storage forecast, chargeback cost, and actions.",
+        response: "projectEvaluation",
+        recordCount: projectEvaluations.length
+      },
+      {
+        method: "POST",
+        path: `${basePath}/reviews/{queueId}/decision`,
+        scope: "enterprise:quota.review",
+        description: "Submit an admin approval, reduction, or escalation decision.",
+        response: "decisionReceipt",
+        recordCount: approvalQueue.length
+      },
+      {
+        method: "GET",
+        path: `${basePath}/export-manifest`,
+        scope: "enterprise:quota.export",
+        description: "Fetch routing metadata for dashboards, finance, compliance, and webhooks.",
+        response: "exportManifest",
+        recordCount: 5
+      }
+    ],
+    integrationClients: [
+      {
+        system: "institutional repositories",
+        examples: ["DSpace", "Invenio"],
+        uses: ["compliance evidence archive", "quota-aware export routing"]
+      },
+      {
+        system: "research operations dashboards",
+        examples: ["department admin console", "research office portal"],
+        uses: ["portfolio usage visibility", "approval queue triage"]
+      },
+      {
+        system: "finance and chargeback ledgers",
+        examples: ["ERP cost centers", "grant accounting"],
+        uses: ["forecast cost allocation", "department-level budget review"]
+      },
+      {
+        system: "workflow automation",
+        examples: ["webhook receivers", "ticketing systems"],
+        uses: ["review-required notifications", "decision receipt tracking"]
+      }
+    ]
+  };
+}
+
+function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue, apiCatalog) {
   const atRiskProjects = projectEvaluations.filter((project) => project.risk !== "normal");
   return {
     manifestId: slug([input.institution || "institution", input.period || "period", "quota-governance"]),
@@ -227,6 +313,11 @@ function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue
         system: "workflow-webhooks",
         payload: "quota review required events for restricted or over-quota projects",
         recordCount: approvalQueue.length
+      },
+      {
+        system: "enterprise-quota-rest-api",
+        payload: "endpoint catalog for dashboards, review queues, project detail, decisions, and export manifests",
+        recordCount: apiCatalog.endpoints.length
       }
     ]
   };
@@ -239,6 +330,7 @@ function buildComplianceEvidence(input, projectEvaluations, dashboard) {
       "Organization-wide admin dashboard for projects, departments, cost centers, and risk queue",
       "Usage stats for compute, storage, pending jobs, forecast overage, and chargeback",
       "Custom tags retained for grant, doctoral, restricted-data, and open-science initiatives",
+      "REST API catalog for dashboard, review queue, project detail, decision, and export routes",
       "Webhook-ready review events with deterministic HMAC signatures",
       "Export manifest for institutional dashboards, finance ledgers, and compliance archives"
     ],
