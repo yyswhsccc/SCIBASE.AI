@@ -1,0 +1,108 @@
+{
+  "institution": "Northbridge Research University",
+  "period": "2026-Q2",
+  "generatedAt": "2026-05-17T00:00:00.000Z",
+  "policy": {
+    "warningRatio": 0.8,
+    "criticalRatio": 1,
+    "blockRatio": 1.15,
+    "reviewWindowDays": 7,
+    "webhookSecret": "synthetic-quota-demo-secret"
+  },
+  "labs": [
+    {
+      "id": "lab-neuro",
+      "name": "Neural Systems Lab",
+      "department": "Neuroscience",
+      "costCenter": "NRU-NEURO-410",
+      "owners": ["Dr. Mina Patel", "research-ops@nru.example"],
+      "projects": [
+        {
+          "id": "neuro-open-atlas",
+          "title": "Open Neural Atlas",
+          "principalInvestigator": "Dr. Mina Patel",
+          "funder": "NIH",
+          "tags": ["GRANT-TRACKED", "OPEN-SCIENCE"],
+          "compute": {
+            "allocatedGpuHours": 1200,
+            "usedGpuHours": 910,
+            "pendingGpuHours": 240,
+            "unitCostUsd": 3.4
+          },
+          "storage": {
+            "allocatedGb": 8000,
+            "usedGb": 6200,
+            "projectedGb": 6900,
+            "unitCostUsd": 0.03
+          }
+        },
+        {
+          "id": "microscopy-foundation-model",
+          "title": "Microscopy Foundation Model",
+          "principalInvestigator": "Dr. Leon Watts",
+          "funder": "NSF",
+          "tags": ["DOCTORAL-WORK", "RESTRICTED-DATA"],
+          "compute": {
+            "allocatedGpuHours": 900,
+            "usedGpuHours": 980,
+            "pendingGpuHours": 180,
+            "unitCostUsd": 4.1
+          },
+          "storage": {
+            "allocatedGb": 5000,
+            "usedGb": 5100,
+            "projectedGb": 5600,
+            "unitCostUsd": 0.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "lab-climate",
+      "name": "Climate Informatics Group",
+      "department": "Earth Systems",
+      "costCenter": "NRU-EARTH-225",
+      "owners": ["Dr. Rowan Ellis", "earth-admin@nru.example"],
+      "projects": [
+        {
+          "id": "river-sensor-elns",
+          "title": "River Sensor ELN Sync",
+          "principalInvestigator": "Dr. Rowan Ellis",
+          "funder": "Horizon EU",
+          "tags": ["ELN-SYNC", "GRANT-TRACKED"],
+          "compute": {
+            "allocatedGpuHours": 300,
+            "usedGpuHours": 121,
+            "pendingGpuHours": 40,
+            "unitCostUsd": 2.9
+          },
+          "storage": {
+            "allocatedGb": 1000,
+            "usedGb": 870,
+            "projectedGb": 930,
+            "unitCostUsd": 0.02
+          }
+        },
+        {
+          "id": "climate-preprint-replication",
+          "title": "Climate Preprint Replication",
+          "principalInvestigator": "Dr. Sabine Klein",
+          "funder": "UKRI",
+          "tags": ["OPEN-SCIENCE", "REPRODUCIBILITY"],
+          "compute": {
+            "allocatedGpuHours": 800,
+            "usedGpuHours": 770,
+            "pendingGpuHours": 80,
+            "unitCostUsd": 3.1
+          },
+          "storage": {
+            "allocatedGb": 2200,
+            "usedGb": 1450,
+            "projectedGb": 1580,
+            "unitCostUsd": 0.025
+          }
+        }
+      ]
+    }
+  ]
+}
