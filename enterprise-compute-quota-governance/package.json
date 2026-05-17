@@ -5,6 +5,7 @@
   "description": "Institutional compute and storage quota governance for SCIBASE Enterprise Tooling.",
   "main": "index.js",
   "scripts": {
+    "check": "node --check index.js && node --check demo.js && node --check test.js",
     "demo": "node demo.js",
     "test": "node test.js"
   },

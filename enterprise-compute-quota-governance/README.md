@@ -31,6 +31,7 @@ rotation.
 
 ```sh
 cd enterprise-compute-quota-governance
+npm run check
 npm test
 npm run demo
 ```
