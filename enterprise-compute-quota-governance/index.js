@@ -285,7 +285,7 @@ function buildApiCatalog(input, projectEvaluations, dashboard, approvalQueue) {
         scope: "enterprise:quota.export",
         description: "Fetch routing metadata for dashboards, finance, compliance, and webhooks.",
         response: "exportManifest",
-        recordCount: 5
+        recordCount: 6
       }
     ],
     integrationClients: [

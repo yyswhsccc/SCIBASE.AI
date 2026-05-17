@@ -52,7 +52,7 @@ assert.ok(
 );
 assert.equal(
   result.apiCatalog.endpoints.find((endpoint) => endpoint.response === "exportManifest").recordCount,
-  5
+  result.exportManifest.targets.length
 );
 
 const climateReview = result.approvalQueue.find(
