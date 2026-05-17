@@ -17,6 +17,29 @@ const RISK_RANK = Object.freeze({
   blocked: 3
 });
 
+const EXPORT_REGISTER_HEADERS = Object.freeze([
+  "project_id",
+  "project_title",
+  "lab_id",
+  "lab_name",
+  "department",
+  "cost_center",
+  "principal_investigator",
+  "funder",
+  "risk",
+  "compute_allocated_gpu_hours",
+  "compute_forecast_gpu_hours",
+  "compute_overage_gpu_hours",
+  "storage_allocated_gb",
+  "storage_projected_gb",
+  "storage_overage_gb",
+  "forecast_cost_usd",
+  "tags",
+  "queue_id",
+  "requested_decision",
+  "due_in_days"
+]);
+
 function evaluateQuotaGovernance(input, policyOverrides = {}) {
   if (!input || typeof input !== "object") {
     throw new TypeError("evaluateQuotaGovernance requires an input object");
@@ -33,12 +56,14 @@ function evaluateQuotaGovernance(input, policyOverrides = {}) {
   const dashboard = buildDashboard(input, projectEvaluations);
   const approvalQueue = buildApprovalQueue(projectEvaluations, policy);
   const apiCatalog = buildApiCatalog(input, projectEvaluations, dashboard, approvalQueue);
+  const exportRegister = buildExportRegister(input, projectEvaluations, approvalQueue);
   const exportManifest = buildExportManifest(
     input,
     projectEvaluations,
     dashboard,
     approvalQueue,
-    apiCatalog
+    apiCatalog,
+    exportRegister
   );
   const complianceEvidence = buildComplianceEvidence(input, projectEvaluations, dashboard);
 
@@ -50,6 +75,7 @@ function evaluateQuotaGovernance(input, policyOverrides = {}) {
     dashboard,
     approvalQueue,
     apiCatalog,
+    exportRegister,
     exportManifest,
     complianceEvidence
   };
@@ -287,12 +313,69 @@ function buildApiCatalog(input, projectEvaluations, dashboard, approvalQueue) {
   };
 }
 
-function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue, apiCatalog) {
+function buildExportRegister(input, projectEvaluations, approvalQueue) {
+  const reviewByProject = new Map(approvalQueue.map((review) => [review.projectId, review]));
+  const rows = [...projectEvaluations].sort(compareRisk).map((project) => {
+    const review = reviewByProject.get(project.projectId);
+    return {
+      project_id: project.projectId,
+      project_title: project.projectTitle,
+      lab_id: project.labId,
+      lab_name: project.labName,
+      department: project.department,
+      cost_center: project.costCenter || "",
+      principal_investigator: project.principalInvestigator || "",
+      funder: project.funder || "",
+      risk: project.risk,
+      compute_allocated_gpu_hours: project.compute.allocatedGpuHours,
+      compute_forecast_gpu_hours: project.compute.forecastGpuHours,
+      compute_overage_gpu_hours: project.compute.overageGpuHours,
+      storage_allocated_gb: project.storage.allocatedGb,
+      storage_projected_gb: project.storage.projectedGb,
+      storage_overage_gb: project.storage.overageGb,
+      forecast_cost_usd: project.forecastCostUsd,
+      tags: project.tags.join(";"),
+      queue_id: review ? review.queueId : "",
+      requested_decision: review ? review.requestedDecision : "",
+      due_in_days: review ? review.dueInDays : ""
+    };
+  });
+
+  return {
+    filename: `${slug([
+      input.institution || "institution",
+      input.period || "period",
+      "quota-risk-register"
+    ])}.csv`,
+    headers: [...EXPORT_REGISTER_HEADERS],
+    rows,
+    csv: rowsToCsv(EXPORT_REGISTER_HEADERS, rows)
+  };
+}
+
+function rowsToCsv(headers, rows) {
+  return [headers.join(","), ...rows.map((row) => headers.map((header) => csvCell(row[header])).join(","))].join(
+    "\n"
+  );
+}
+
+function csvCell(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+  const text = String(value);
+  if (/[",\n]/.test(text)) {
+    return `"${text.replace(/"/g, '""')}"`;
+  }
+  return text;
+}
+
+function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue, apiCatalog, exportRegister) {
   const atRiskProjects = projectEvaluations.filter((project) => project.risk !== "normal");
   return {
     manifestId: slug([input.institution || "institution", input.period || "period", "quota-governance"]),
     generatedAt: input.generatedAt || new Date(0).toISOString(),
-    formats: ["json", "csv-ready"],
+    formats: ["json", "csv"],
     targets: [
       {
         system: "institutional-admin-dashboard",
@@ -303,6 +386,11 @@ function buildExportManifest(input, projectEvaluations, dashboard, approvalQueue
         system: "finance-chargeback-ledger",
         payload: "cost center usage forecast with compute and storage units",
         recordCount: dashboard.departments.length
+      },
+      {
+        system: "csv-quota-risk-register",
+        payload: `${exportRegister.filename} with project, lab, quota, risk, queue, and decision columns`,
+        recordCount: exportRegister.rows.length
       },
       {
         system: "compliance-evidence-archive",

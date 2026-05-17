@@ -28,6 +28,10 @@ for (const endpoint of result.apiCatalog.endpoints) {
   console.log(`- ${endpoint.method} ${endpoint.path} [${endpoint.scope}]`);
 }
 console.log("");
+console.log("CSV export");
+console.log(`- ${result.exportRegister.filename}: ${result.exportRegister.rows.length} rows`);
+console.log(`- Headers: ${result.exportRegister.headers.length}`);
+console.log("");
 console.log("Webhook events");
 for (const event of result.webhookEvents) {
   console.log(`- ${event.id} ${event.signature.slice(0, 23)}...`);

@@ -66,11 +66,24 @@ assert.deepEqual(
   [
     "institutional-admin-dashboard",
     "finance-chargeback-ledger",
+    "csv-quota-risk-register",
     "compliance-evidence-archive",
     "workflow-webhooks",
     "enterprise-quota-rest-api"
   ]
 );
+assert.equal(result.exportManifest.formats.includes("csv"), true);
+assert.equal(result.exportRegister.filename, "northbridge-research-university-2026-q2-quota-risk-register.csv");
+assert.equal(result.exportRegister.rows.length, 4);
+assert.equal(result.exportRegister.rows[0].project_id, "microscopy-foundation-model");
+assert.equal(result.exportRegister.rows[0].queue_id, "quota-review-001");
+assert.equal(result.exportRegister.rows[0].requested_decision, "block-and-escalate");
+assert.equal(result.exportRegister.rows[0].tags, "DOCTORAL-WORK;RESTRICTED-DATA");
+assert.equal(
+  result.exportRegister.csv.split("\n")[0],
+  "project_id,project_title,lab_id,lab_name,department,cost_center,principal_investigator,funder,risk,compute_allocated_gpu_hours,compute_forecast_gpu_hours,compute_overage_gpu_hours,storage_allocated_gb,storage_projected_gb,storage_overage_gb,forecast_cost_usd,tags,queue_id,requested_decision,due_in_days"
+);
+assert.ok(result.exportRegister.csv.includes("microscopy-foundation-model"));
 
 assert.ok(result.complianceEvidence.customTags.includes("GRANT-TRACKED"));
 assert.ok(result.complianceEvidence.customTags.includes("RESTRICTED-DATA"));
