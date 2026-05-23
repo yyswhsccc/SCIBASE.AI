@@ -1,38 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">Enterprise compute quota governance demo preview</title>
-  <desc id="desc">Dashboard preview showing institutional compute and storage quota risk, approval queue, REST API routes, and webhook events.</desc>
-  <rect width="1280" height="720" fill="#f7f4ee"/>
-  <rect x="56" y="48" width="1168" height="624" rx="18" fill="#ffffff" stroke="#1d2939" stroke-width="2"/>
-  <text x="88" y="104" fill="#17202a" font-family="Arial, sans-serif" font-size="34" font-weight="700">Enterprise Compute Quota Governance</text>
-  <text x="88" y="138" fill="#475467" font-family="Arial, sans-serif" font-size="18">Northbridge Research University · 2026-Q2</text>
-  <rect x="88" y="176" width="244" height="128" rx="12" fill="#e8f4ff" stroke="#8cc8ff"/>
-  <text x="112" y="218" fill="#1d4e89" font-family="Arial, sans-serif" font-size="18" font-weight="700">Forecast GPU hours</text>
-  <text x="112" y="266" fill="#17202a" font-family="Arial, sans-serif" font-size="44" font-weight="700">3,321</text>
-  <rect x="360" y="176" width="244" height="128" rx="12" fill="#fff0e6" stroke="#ffb36f"/>
-  <text x="384" y="218" fill="#9a4d00" font-family="Arial, sans-serif" font-size="18" font-weight="700">Projected storage</text>
-  <text x="384" y="266" fill="#17202a" font-family="Arial, sans-serif" font-size="44" font-weight="700">15,010 GB</text>
-  <rect x="632" y="176" width="244" height="128" rx="12" fill="#f0f7ed" stroke="#9ad28a"/>
-  <text x="656" y="218" fill="#276738" font-family="Arial, sans-serif" font-size="18" font-weight="700">Forecast cost</text>
-  <text x="656" y="266" fill="#17202a" font-family="Arial, sans-serif" font-size="44" font-weight="700">$12,257</text>
-  <rect x="904" y="176" width="244" height="128" rx="12" fill="#f8e9ec" stroke="#dc8b98"/>
-  <text x="928" y="218" fill="#9f1239" font-family="Arial, sans-serif" font-size="18" font-weight="700">At-risk projects</text>
-  <text x="928" y="266" fill="#17202a" font-family="Arial, sans-serif" font-size="44" font-weight="700">4</text>
-  <text x="88" y="360" fill="#17202a" font-family="Arial, sans-serif" font-size="24" font-weight="700">Admin approval queue</text>
-  <rect x="88" y="384" width="704" height="54" rx="10" fill="#fde7e9"/>
-  <text x="112" y="418" fill="#9f1239" font-family="Arial, sans-serif" font-size="18" font-weight="700">BLOCKED</text>
-  <text x="230" y="418" fill="#17202a" font-family="Arial, sans-serif" font-size="18">microscopy-foundation-model · block and escalate</text>
-  <rect x="88" y="450" width="704" height="54" rx="10" fill="#fff4db"/>
-  <text x="112" y="484" fill="#a16207" font-family="Arial, sans-serif" font-size="18" font-weight="700">CRITICAL</text>
-  <text x="230" y="484" fill="#17202a" font-family="Arial, sans-serif" font-size="18">climate-preprint-replication · approve extension</text>
-  <rect x="88" y="516" width="704" height="54" rx="10" fill="#eef6ff"/>
-  <text x="112" y="550" fill="#1d4e89" font-family="Arial, sans-serif" font-size="18" font-weight="700">WARNING</text>
-  <text x="230" y="550" fill="#17202a" font-family="Arial, sans-serif" font-size="18">grant-tracked work receives review before billing</text>
-  <text x="840" y="360" fill="#17202a" font-family="Arial, sans-serif" font-size="24" font-weight="700">API, webhook, exports</text>
-  <rect x="840" y="384" width="308" height="54" rx="10" fill="#f2f4f7"/>
-  <text x="864" y="418" fill="#17202a" font-family="Arial, sans-serif" font-size="17">Service-token REST catalog</text>
-  <rect x="840" y="450" width="308" height="54" rx="10" fill="#f2f4f7"/>
-  <text x="864" y="484" fill="#17202a" font-family="Arial, sans-serif" font-size="17">HMAC signed review events</text>
-  <rect x="840" y="516" width="308" height="54" rx="10" fill="#f2f4f7"/>
-  <text x="864" y="550" fill="#17202a" font-family="Arial, sans-serif" font-size="17">Finance and evidence exports</text>
-  <text x="88" y="626" fill="#475467" font-family="Arial, sans-serif" font-size="17">Synthetic data only · node test.js · node demo.js</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img">
+<rect width="1280" height="720" fill="#f7f4ee"/>
+<rect x="42" y="34" width="1196" height="652" rx="12" fill="#ffffff" stroke="#1d2939" stroke-width="2"/>
+<rect x="42" y="34" width="1196" height="12" rx="6" fill="#1d4e89"/>
+<rect x="42" y="34" width="149" height="12" rx="6" fill="#1a7f64"/>
+<text x="82" y="96" fill="#17202a" font-family="Arial, sans-serif" font-size="36" font-weight="700">Enterprise compute quota governance proof</text>
+<text x="82" y="132" fill="#475467" font-family="Arial, sans-serif" font-size="19" font-weight="400">Static companion to docs/demo.mp4 and docs/demo.md</text>
+<text x="1160" y="96" fill="#667085" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="end">1/8</text>
+<line x1="82" y1="158" x2="1198" y2="158" stroke="#d0d5dd" stroke-width="1"/>
+<circle cx="98" cy="206" r="5" fill="#1d4e89"/>
+<text x="122" y="214" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">Synthetic input: 2 labs, 4 projects, and policy</text>
+<text x="122" y="243" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">ratios for warning, critical, and blocked quota</text>
+<text x="122" y="272" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">states.</text>
+<circle cx="98" cy="302" r="5" fill="#1d4e89"/>
+<text x="122" y="310" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">Governance output: dashboard metrics, approval</text>
+<text x="122" y="339" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">queue decisions, REST API catalog, CSV risk</text>
+<text x="122" y="368" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">register, export manifest, and HMAC signed webhook</text>
+<text x="122" y="397" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">events.</text>
+<circle cx="98" cy="427" r="5" fill="#1d4e89"/>
+<text x="122" y="435" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">Validation: npm run check, npm test, npm run demo,</text>
+<text x="122" y="464" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">git diff --check.</text>
+<circle cx="98" cy="494" r="5" fill="#1d4e89"/>
+<text x="122" y="502" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">Reviewer focus: usage is evaluated against limits;</text>
+<text x="122" y="531" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">risk becomes decisions; exports and webhooks</text>
+<text x="122" y="560" fill="#1f2937" font-family="Arial, sans-serif" font-size="24" font-weight="400">preserve evidence.</text>
+<rect x="850" y="210" width="310" height="310" rx="12" fill="#f2f4f7" stroke="#d0d5dd"/>
+<text x="880" y="258" fill="#17202a" font-family="Arial, sans-serif" font-size="25" font-weight="700">Human-reviewable proof</text>
+<circle cx="884" cy="296" r="4" fill="#1a7f64"/>
+<text x="902" y="304" fill="#344054" font-family="Arial, sans-serif" font-size="22" font-weight="400">MP4: 40 second walkthrough.</text>
+<circle cx="884" cy="338" r="4" fill="#1a7f64"/>
+<text x="902" y="346" fill="#344054" font-family="Arial, sans-serif" font-size="22" font-weight="400">MD: exact validation steps</text>
+<text x="902" y="374" fill="#344054" font-family="Arial, sans-serif" font-size="22" font-weight="400">and sample output.</text>
+<circle cx="884" cy="408" r="4" fill="#1a7f64"/>
+<text x="902" y="416" fill="#344054" font-family="Arial, sans-serif" font-size="22" font-weight="400">SVG: static visual summary.</text>
+<rect x="82" y="610" width="1096" height="36" rx="8" fill="#eef6ff"/>
+<text x="102" y="634" fill="#1d4e89" font-family="Arial, sans-serif" font-size="18" font-weight="700">Proof gate: file existence is not enough; demo must be understandable, task-relevant, and tied to the PR claim.</text>
 </svg>
